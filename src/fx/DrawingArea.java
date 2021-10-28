@@ -57,8 +57,11 @@ public class DrawingArea {
     public void removeActuallySelected() {
         if (initialized && actuallySelected != null) {
             points.remove(actuallySelected);
+            area.getChildren().remove(actuallySelected);
+            area.getChildren().remove(actuallySelected.getLabel());
             actuallySelected.setManaged(false);
             actuallySelected.setVisible(false);
+            actuallySelected.getLabel().setVisible(false);
             if (points.size() > 0) {
                 actuallySelected = points.get(points.size() - 1);
                 actuallySelected.setStroke(Color.RED);
@@ -70,17 +73,29 @@ public class DrawingArea {
     }
 
     public void addPoint(Point actuallySelected) {
+        area.getChildren().add(actuallySelected.getLabel());
         area.getChildren().add(actuallySelected);
+        actuallySelected.getLabel().setTranslateX(actuallySelected.getTranslateX());
+        actuallySelected.getLabel().setTranslateY(actuallySelected.getTranslateY()-10);
         points.add(actuallySelected);
         setActuallySelected(actuallySelected);
     }
 
     public void setActuallySelected(Point actuallySelected) {
         if (initialized) {
-            points.forEach(p -> p.setStroke(Color.TRANSPARENT));
+            points.forEach(p -> {
+                p.setStroke(Color.TRANSPARENT);
+                p.getLabel().setTextFill(p.getColor());
+
+            });
             this.actuallySelected = actuallySelected;
             this.actuallySelected.setStroke(Color.RED);
+            this.actuallySelected.getLabel().setTextFill(Color.RED);
         }
+    }
+
+    public StackPane getArea() {
+        return area;
     }
 
     public void update() {

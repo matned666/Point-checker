@@ -1,5 +1,6 @@
 package fx;
 
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -10,6 +11,7 @@ public class Point extends Circle {
     private double y;
     private Color color;
     private final DrawingArea drawingArea = DrawingArea.getInstance();
+    private Label label;
 
     private Point() {
     }
@@ -18,18 +20,21 @@ public class Point extends Circle {
         setCenterX(x);
         setCenterY(y);
         double radius = 3;
+        label = new Label(myId);
+        label.setVisible(true);
         setRadius(radius);
         setFill(color);
+        setStrokeWidth(2);
         setVisible(true);
         setOnMousePressed(click -> {
             DrawingArea.getInstance().setActuallySelected(this);
             DrawingArea.getInstance().update();
         });
         setOnMouseDragged(mouse -> {
-            x = mouse.getX();
-            y = mouse.getY();
-            DrawingArea.getInstance().update();
+            x = mouse.getX() + drawingArea.getArea().getWidth() / 2;
+            y = mouse.getY() + drawingArea.getArea().getHeight() / 2;
             update();
+            DrawingArea.getInstance().update();
         });
     }
 
@@ -45,17 +50,23 @@ public class Point extends Circle {
         return y;
     }
 
+    public Label getLabel() {
+        return label;
+    }
+
     public Color getColor() {
         return color;
     }
 
     public void update() {
-        setCenterX(x);
-        setCenterY(y);
-        setTranslateX(x);
-        setTranslateY(y);
-
+        setCenterX(x  - drawingArea.getArea().getWidth() / 2);
+        setCenterY(y  - drawingArea.getArea().getHeight() / 2);
+        setTranslateX(x  - drawingArea.getArea().getWidth() / 2);
+        setTranslateY(y  - drawingArea.getArea().getHeight() / 2);
+        label.setTranslateX(x - drawingArea.getArea().getWidth() / 2);
+        label.setTranslateY(y - drawingArea.getArea().getHeight() / 2 - getRadius() - label.getHeight()/2);
     }
+
 
     public static final class PointBuilder {
         private String id;
