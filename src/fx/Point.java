@@ -9,6 +9,7 @@ public class Point extends Circle {
     private double x;
     private double y;
     private Color color;
+    private final DrawingArea drawingArea = DrawingArea.getInstance();
 
     private Point() {
     }
@@ -22,14 +23,13 @@ public class Point extends Circle {
         setVisible(true);
         setOnMousePressed(click -> {
             DrawingArea.getInstance().setActuallySelected(this);
-            DrawingArea.getInstance().updateLabels();
+            DrawingArea.getInstance().update();
         });
         setOnMouseDragged(mouse -> {
             x = mouse.getX();
             y = mouse.getY();
-            setCenterX(mouse.getX());
-            setCenterY(mouse.getY());
-            DrawingArea.getInstance().updateLabels();
+            DrawingArea.getInstance().update();
+            update();
         });
     }
 
@@ -47,6 +47,14 @@ public class Point extends Circle {
 
     public Color getColor() {
         return color;
+    }
+
+    public void update() {
+        setCenterX(x);
+        setCenterY(y);
+        setTranslateX(x);
+        setTranslateY(y);
+
     }
 
     public static final class PointBuilder {

@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -22,21 +21,18 @@ public class AddPointController implements Initializable {
     @FXML public TextField yTextField;
     @FXML public TextField idTextField;
 
-    private AnchorPane area;
+    private final DrawingArea drawingArea = DrawingArea.getInstance();
 
     @FXML
     public void onApplyPointClick(ActionEvent event) {
-        double x = !xTextField.getText().equals("") ? Double.parseDouble(xTextField.getText()) : 100;
-        double y = !yTextField.getText().equals("") ? Double.parseDouble(yTextField.getText()) : 100;
+        double x = !xTextField.getText().equals("") ? Double.parseDouble(xTextField.getText()) : 0;
+        double y = !yTextField.getText().equals("") ? Double.parseDouble(yTextField.getText()) : 0;
         String id = idTextField.getText();
         Color color = colorPicker.getValue();
         Point point = Point.PointBuilder.aPoint(x,y)
                 .withColor(color)
                 .withId(id)
                 .build();
-        DrawingArea drawingArea = DrawingArea.getInstance();
-        area.getChildren().add(point);
-
         drawingArea.addPoint(point);
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
@@ -45,7 +41,6 @@ public class AddPointController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        area = DrawingArea.getInstance().getArea();
         colorPicker.setValue(Color.BLACK);
         xTextField.setOnKeyReleased(key ->  {
             String txt = xTextField.getText();

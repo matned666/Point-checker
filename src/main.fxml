@@ -3,20 +3,114 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="620.0" prefWidth="839.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
-    <AnchorPane fx:id="drawingArea" layoutX="38.0" layoutY="36.0" prefHeight="451.0" prefWidth="760.0" style="-fx-border-color: black;" />
-    <Button layoutX="38.0" layoutY="510.0" mnemonicParsing="false" onAction="#onAdPointButtonClicked" prefHeight="78.0" prefWidth="169.0" text="ADD POINT">
+<AnchorPane fx:id="sceneA" prefHeight="868.0" prefWidth="1267.0" style="-fx-background-color: darkGray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <StackPane fx:id="drawingArea" layoutX="28.0" layoutY="31.0" prefHeight="700.0" prefWidth="1200.0" style="-fx-border-color: black; -fx-background-color: white;">
+      <children>
+         <Line startY="700.0" style="-fx-stroke-dash-array: 2 12;" />
+         <Line endX="1200.0" endY="700.0" startY="700.0" style="-fx-stroke-dash-array: 2 12;" />
+      </children>
+   </StackPane>
+    <Button layoutX="28.0" layoutY="748.0" mnemonicParsing="false" onAction="#onAdPointButtonClicked" prefHeight="108.0" prefWidth="176.0" text="ADD POINT">
         <font>
           <Font name="System Bold" size="22.0" />
         </font>
     </Button>
-    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="286.0" layoutY="525.0" prefHeight="17.0" prefWidth="125.0" text="x:" textAlignment="RIGHT" />
-    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="286.0" layoutY="541.0" prefHeight="17.0" prefWidth="125.0" text="y:" textAlignment="RIGHT" />
-    <Label fx:id="pointX" contentDisplay="RIGHT" layoutX="418.0" layoutY="525.0" prefHeight="17.0" prefWidth="125.0" text="00" textAlignment="RIGHT" />
-    <Label fx:id="pointY" contentDisplay="RIGHT" layoutX="418.0" layoutY="541.0" prefHeight="17.0" prefWidth="125.0" text="00" textAlignment="RIGHT" />
-    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="283.0" layoutY="502.0" prefHeight="17.0" prefWidth="125.0" text="Point id:" textAlignment="RIGHT" />
-    <Label fx:id="pointId" contentDisplay="RIGHT" layoutX="415.0" layoutY="502.0" prefHeight="17.0" prefWidth="125.0" text="00" textAlignment="RIGHT" />
-   <Button layoutX="368.0" layoutY="563.0" mnemonicParsing="false" onAction="#onRemoveButton" text="remove" />
+    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="252.0" layoutY="778.0" prefHeight="35.0" prefWidth="45.0" text="x:" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font></Label>
+    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="252.0" layoutY="811.0" prefHeight="35.0" prefWidth="45.0" text="y:" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font></Label>
+    <Label fx:id="pointX" contentDisplay="RIGHT" layoutX="309.0" layoutY="778.0" prefHeight="35.0" prefWidth="100.0" text="null" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font></Label>
+    <Label fx:id="pointY" contentDisplay="RIGHT" layoutX="309.0" layoutY="813.0" prefHeight="35.0" prefWidth="100.0" text="null" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font></Label>
+    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="488.0" layoutY="737.0" prefHeight="17.0" prefWidth="125.0" text="Point id:" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font></Label>
+    <Label fx:id="pointId" contentDisplay="RIGHT" layoutX="625.0" layoutY="737.0" prefHeight="17.0" prefWidth="125.0" text="null" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font></Label>
+   <Button layoutX="252.0" layoutY="740.0" mnemonicParsing="false" onAction="#onRemoveButton" prefHeight="30.0" prefWidth="245.0" text="Remove selected point">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="922.0" layoutY="773.0" prefHeight="17.0" prefWidth="125.0" text="x:" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="918.0" layoutY="810.0" prefHeight="17.0" prefWidth="125.0" text="y:" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="989.0" layoutY="737.0" prefHeight="17.0" prefWidth="125.0" text="mouse:" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label fx:id="mouseX" contentDisplay="RIGHT" layoutX="1055.0" layoutY="772.0" prefHeight="17.0" prefWidth="125.0" text="null" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label fx:id="mouseY" contentDisplay="RIGHT" layoutX="1051.0" layoutY="811.0" prefHeight="17.0" prefWidth="125.0" text="null" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="401.0" layoutY="777.0" prefHeight="35.0" prefWidth="125.0" text="translate x:" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="401.0" layoutY="810.0" prefHeight="35.0" prefWidth="125.0" text="translate y:" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label fx:id="translateX" contentDisplay="RIGHT" layoutX="534.0" layoutY="777.0" prefHeight="35.0" prefWidth="100.0" text="null" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label fx:id="translateY" contentDisplay="RIGHT" layoutX="534.0" layoutY="812.0" prefHeight="35.0" prefWidth="100.0" text="null" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="625.0" layoutY="778.0" prefHeight="35.0" prefWidth="125.0" text="center x:" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="625.0" layoutY="811.0" prefHeight="35.0" prefWidth="125.0" text="center y:" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label fx:id="centerX" contentDisplay="RIGHT" layoutX="758.0" layoutY="778.0" prefHeight="35.0" prefWidth="100.0" text="null" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+   <Label fx:id="centerY" contentDisplay="RIGHT" layoutX="758.0" layoutY="813.0" prefHeight="35.0" prefWidth="100.0" text="null" textAlignment="RIGHT">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
 </AnchorPane>

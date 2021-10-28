@@ -41,7 +41,7 @@ public class Dialog {
         stage.setResizable(false);
         Window window = mainScene.getWindow();
         stage.setX(window.getX());
-        stage.setY(window.getY()+100);
+        stage.setY(window.getY()+350);
         stage.show();
     }
 }
