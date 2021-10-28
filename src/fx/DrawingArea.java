@@ -3,72 +3,82 @@ package fx;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DrawingArea {
 
     private static DrawingArea instance;
 
-    public static DrawingArea getInstance(){
-        if (instance == null){
+    public static DrawingArea getInstance() {
+        if (instance == null) {
             instance = new DrawingArea();
         }
         return instance;
     }
 
+    private boolean initialized = false;
+
+    private final List<Point> points;
+
+    private Point actuallySelected;
+
     private AnchorPane area;
-    public Label pointX;
-    public Label pointY;
-    public Label pointTranslateX;
-    public Label pointTranslateY;
-    public Label pointId;
+    private Label pointX;
+    private Label pointY;
+    private Label pointId;
 
     public DrawingArea() {
+        points = new ArrayList<>();
+    }
+
+    public void init(AnchorPane area, Label pointX, Label pointY, Label pointId) {
+        initialized = true;
+        this.area = area;
+        this.pointX = pointX;
+        this.pointY = pointY;
+        this.pointId = pointId;
     }
 
     public AnchorPane getArea() {
         return area;
     }
 
-    public void setArea(AnchorPane area) {
-        this.area = area;
+    public Point getActuallySelected() {
+        return actuallySelected;
     }
 
-    public Label getPointX() {
-        return pointX;
+    public void removeActuallySelected(){
+        if (initialized) {
+            points.remove(actuallySelected);
+            actuallySelected.setManaged(false);
+            actuallySelected.setVisible(false);
+            if (points.size() > 0) {
+                actuallySelected = points.get(points.size() - 1);
+            } else {
+                actuallySelected = null;
+            }
+            updateLabels();
+        }
     }
 
-    public void setPointX(Label pointX) {
-        this.pointX = pointX;
+    public void addPoint(Point actuallySelected){
+        points.add(actuallySelected);
+        setActuallySelected(actuallySelected);
     }
 
-    public Label getPointY() {
-        return pointY;
+    public void setActuallySelected(Point actuallySelected) {
+        if (initialized) {
+            this.actuallySelected = actuallySelected;
+            updateLabels();
+        }
     }
 
-    public void setPointY(Label pointY) {
-        this.pointY = pointY;
-    }
-
-    public Label getPointTranslateX() {
-        return pointTranslateX;
-    }
-
-    public void setPointTranslateX(Label pointTranslateX) {
-        this.pointTranslateX = pointTranslateX;
-    }
-
-    public Label getPointTranslateY() {
-        return pointTranslateY;
-    }
-
-    public void setPointTranslateY(Label pointTranslateY) {
-        this.pointTranslateY = pointTranslateY;
-    }
-
-    public Label getPointId() {
-        return pointId;
-    }
-
-    public void setPointId(Label pointId) {
-        this.pointId = pointId;
+    public void updateLabels() {
+        if (initialized) {
+            pointId.setText(String.valueOf(this.actuallySelected.getMyId()));
+            pointX.setText(String.valueOf(this.actuallySelected.getX()));
+            pointY.setText(String.valueOf(this.actuallySelected.getY()));
+        }
     }
 }

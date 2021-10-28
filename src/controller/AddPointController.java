@@ -26,15 +26,18 @@ public class AddPointController implements Initializable {
 
     @FXML
     public void onApplyPointClick(ActionEvent event) {
-        double x = Double.parseDouble(xTextField.getText());
-        double y = Double.parseDouble(yTextField.getText());
+        double x = !xTextField.getText().equals("") ? Double.parseDouble(xTextField.getText()) : 100;
+        double y = !yTextField.getText().equals("") ? Double.parseDouble(yTextField.getText()) : 100;
         String id = idTextField.getText();
         Color color = colorPicker.getValue();
         Point point = Point.PointBuilder.aPoint(x,y)
                 .withColor(color)
                 .withId(id)
                 .build();
+        DrawingArea drawingArea = DrawingArea.getInstance();
         area.getChildren().add(point);
+
+        drawingArea.addPoint(point);
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();

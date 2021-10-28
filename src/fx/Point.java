@@ -20,12 +20,33 @@ public class Point extends Circle {
         setRadius(radius);
         setFill(color);
         setVisible(true);
-        setOnMouseClicked(click -> {
-            DrawingArea drawingArea = DrawingArea.getInstance();
-            drawingArea.getPointId().setText(String.valueOf(myId));
-            drawingArea.getPointX().setText(String.valueOf(x));
-            drawingArea.getPointY().setText(String.valueOf(y));
+        setOnMousePressed(click -> {
+            DrawingArea.getInstance().setActuallySelected(this);
+            DrawingArea.getInstance().updateLabels();
         });
+        setOnMouseDragged(mouse -> {
+            x = mouse.getX();
+            y = mouse.getY();
+            setCenterX(mouse.getX());
+            setCenterY(mouse.getY());
+            DrawingArea.getInstance().updateLabels();
+        });
+    }
+
+    public String getMyId() {
+        return myId;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public static final class PointBuilder {

@@ -2,6 +2,7 @@ package controller;
 
 import dialog.Dialog;
 import fx.DrawingArea;
+import fx.Point;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,14 +20,16 @@ public class MainController implements Initializable {
     @FXML public AnchorPane drawingArea;
 
     @FXML public void onAdPointButtonClicked(ActionEvent event) {
-        Dialog.openDialog("Add point", "addPoint");
+        Dialog.openDialog("Add point", "addPoint", drawingArea.getScene());
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
-        DrawingArea area = DrawingArea.getInstance();
-        area.setArea(drawingArea);
-        area.setPointId(pointId);
-        area.setPointX(pointX);
-        area.setPointY(pointY);
+        DrawingArea.getInstance().init(drawingArea, pointX, pointY, pointId);
+    }
+
+    @FXML public void onRemoveButton() {
+        DrawingArea drawingArea = DrawingArea.getInstance();
+        this.drawingArea.getChildren().remove(drawingArea.getActuallySelected());
+        drawingArea.removeActuallySelected();
     }
 }
