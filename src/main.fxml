@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="620.0" prefWidth="839.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+    <AnchorPane fx:id="drawingArea" layoutX="38.0" layoutY="36.0" prefHeight="451.0" prefWidth="760.0" style="-fx-border-color: black;" />
+    <Button layoutX="38.0" layoutY="510.0" mnemonicParsing="false" onAction="#onAdPointButtonClicked" prefHeight="78.0" prefWidth="169.0" text="ADD POINT">
+        <font>
+          <Font name="System Bold" size="22.0" />
+        </font>
+    </Button>
+    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="286.0" layoutY="525.0" prefHeight="17.0" prefWidth="125.0" text="x:" textAlignment="RIGHT" />
+    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="286.0" layoutY="541.0" prefHeight="17.0" prefWidth="125.0" text="y:" textAlignment="RIGHT" />
+    <Label fx:id="pointX" contentDisplay="RIGHT" layoutX="418.0" layoutY="525.0" prefHeight="17.0" prefWidth="125.0" text="00" textAlignment="RIGHT" />
+    <Label fx:id="pointY" contentDisplay="RIGHT" layoutX="418.0" layoutY="541.0" prefHeight="17.0" prefWidth="125.0" text="00" textAlignment="RIGHT" />
+    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="283.0" layoutY="502.0" prefHeight="17.0" prefWidth="125.0" text="Point id:" textAlignment="RIGHT" />
+    <Label fx:id="pointId" contentDisplay="RIGHT" layoutX="415.0" layoutY="502.0" prefHeight="17.0" prefWidth="125.0" text="00" textAlignment="RIGHT" />
+</AnchorPane>
