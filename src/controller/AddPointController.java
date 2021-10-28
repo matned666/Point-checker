@@ -43,7 +43,11 @@ public class AddPointController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colorPicker.setValue(Color.BLACK);
+        if (drawingArea.getActuallySelected() == null) {
+            colorPicker.setValue(Color.BLACK);
+        } else {
+            colorPicker.setValue(drawingArea.getActuallySelected().getColor());
+        }
         xTextField.setOnKeyReleased(key ->  {
             String txt = xTextField.getText();
             try {
