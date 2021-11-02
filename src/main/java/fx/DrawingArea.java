@@ -1,5 +1,6 @@
 package fx;
 
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -81,6 +82,7 @@ public class DrawingArea {
     public void removeActuallySelected() {
         if (initialized && actuallySelected != null) {
             points.remove(actuallySelected);
+            actuallySelected.removeDecorations();
             area.getChildren().remove(actuallySelected);
             area.getChildren().remove(actuallySelected.getLabel());
             actuallySelected.setManaged(false);
@@ -138,7 +140,7 @@ public class DrawingArea {
         }
     }
 
-    public void showLine(DecorationLine line) {
+    public void showDecoration(Node line) {
         line.setVisible(true);
         area.getChildren().add(line);
     }

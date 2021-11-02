@@ -1,5 +1,6 @@
 package controller;
 
+import fx.AngleCurve;
 import fx.DecorationLine;
 import fx.DrawingArea;
 import fx.Point;
@@ -42,23 +43,36 @@ public class AddPointController implements Initializable {
         }
         String id = idTextField.getText();
         Color color = colorPicker.getValue();
-        Point point = Point.PointBuilder.aPoint(x, y)
-                .withColor(color)
-                .withId(id)
-                .build();
+        Point point = Point.PointBuilder.aPoint(x, y).withColor(color).withId(id).build();
         point.update();
         if (DrawingArea.getInstance().possibleToMakeLine()) {
-            DecorationLine line = new DecorationLine(DrawingArea.getInstance().getActuallySelected(), point);
-            drawingArea.getArea();
-            DrawingArea.getInstance().getActuallySelected().subscribeLine(line);
-            point.subscribeLine(line);
-            drawingArea.showLine(line);
+            addLine(drawingArea,DrawingArea.getInstance().getActuallySelected(), point);
+        }
+
+        if (DrawingArea.getInstance().possibleToMakeAngle()) {
+            addAngleArc(drawingArea, DrawingArea.getInstance().getActuallySelected(), DrawingArea.getInstance().previousActuallySelected(),point);
+            addLine(drawingArea,DrawingArea.getInstance().getActuallySelected(), point);
         }
         drawingArea.addPoint(point);
         drawingArea.update();
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+    private void addLine(DrawingArea drawingArea, Point point1, Point point2) {
+        DecorationLine line = new DecorationLine(point1, point2);
+        point1.subscribe(line);
+        point2.subscribe(line);
+        drawingArea.showDecoration(line);
+    }
+
+    private void addAngleArc(DrawingArea drawingArea, Point tip, Point point1, Point point2) {
+        AngleCurve angleCurve = new AngleCurve(tip, point1, point2);
+        tip.subscribe(angleCurve);
+        point1.subscribe(angleCurve);
+        point2.subscribe(angleCurve);
+        drawingArea.showDecoration(angleCurve);
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {

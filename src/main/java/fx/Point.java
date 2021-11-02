@@ -1,9 +1,14 @@
 package fx;
 
 import io.reactivex.subjects.PublishSubject;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import tools.Vector2D;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Point extends Circle implements Decoration{
 
@@ -11,25 +16,32 @@ public class Point extends Circle implements Decoration{
     private double x;
     private double y;
     private Color color;
-    private final fx.DrawingArea drawingArea = fx.DrawingArea.getInstance();
     private Label label;
+    private final fx.DrawingArea drawingArea = fx.DrawingArea.getInstance();
+    private List<Decoration> dependentDecorations;
 
-    private PublishSubject<Point> changeObservable = PublishSubject.create();
+    private final PublishSubject<Point> changeObservable = PublishSubject.create();
 
     private Point() {
+        dependentDecorations = new LinkedList<>();
     }
 
-    private Point(Point main){
-        if (main != null){
-            changeObservable.subscribe(observable -> {
-                main.x = x;
-                main.update();
-            });
-        }
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public void subscribeLine(DecorationLine line){
-        changeObservable.subscribe(observable -> line.update());
+    Point(Point copy){
+        myId = copy.myId;
+        x = copy.x;
+        y = copy.y;
+        color = copy.color;
+        dependentDecorations = new LinkedList<>();
+    }
+
+    public void subscribe(Decoration decor){
+        dependentDecorations.add(decor);
+        changeObservable.subscribe(observable -> decor.update());
     }
 
     private void init(){
@@ -54,6 +66,14 @@ public class Point extends Circle implements Decoration{
 
     }
 
+    public void removeDecorations(){
+        dependentDecorations.forEach(decor -> {
+            ((Node)decor).setVisible(false);
+            drawingArea.getArea().getChildren().remove(decor);
+            dependentDecorations.remove(decor);
+        });
+    }
+
     public String getMyId() {
         return myId;
     }
@@ -64,6 +84,14 @@ public class Point extends Circle implements Decoration{
 
     public double getY() {
         return y;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 
     public Label getLabel() {
@@ -78,13 +106,25 @@ public class Point extends Circle implements Decoration{
         return "Point{" + "myId='" + myId + '\'' + ", x=" + x + ", y=" + y + ", color=" + color + '}';
     }
 
+    @Override
     public void update() {
         setCenterX(x  - drawingArea.getArea().getWidth() / 2);
         setCenterY(y  - drawingArea.getArea().getHeight() / 2);
         setTranslateX(x  - drawingArea.getArea().getWidth() / 2);
         setTranslateY(y  - drawingArea.getArea().getHeight() / 2);
-        label.setTranslateX(x - drawingArea.getArea().getWidth() / 2);
-        label.setTranslateY(y - drawingArea.getArea().getHeight() / 2 - getRadius() - label.getHeight()/2);
+        if (label != null) {
+            label.setTranslateX(x - drawingArea.getArea().getWidth() / 2);
+            label.setTranslateY(y - drawingArea.getArea().getHeight() / 2 - getRadius() - label.getHeight() / 2);
+        }
+    }
+
+    public void move(Vector2D direction, double distance){
+        double u1 = direction.getDirection().x;
+        double u2 = direction.getDirection().y;
+        double tDenominator = Math.sqrt(Math.pow(u1, 2) + Math.pow(u2, 2));
+        double t = distance / tDenominator;
+        x += u1*t;
+        y += u2*t;
     }
 
 
@@ -124,19 +164,6 @@ public class Point extends Circle implements Decoration{
             point.init();
             return point;
         }
-
-        public Point build(Point main) {
-            Point point = new Point(main);
-            point.myId = this.id;
-            point.x = this.x;
-            point.y = this.y;
-            point.color = this.color;
-            point.init();
-            return point;
-        }
-
-
-
 
     }
 }

@@ -34,6 +34,7 @@ public class DecorationLine extends Line implements Decoration{
         setTranslateY(translationY);
     }
 
+    @Override
     public void update() {
         setLocation();
     }
