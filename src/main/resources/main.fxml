@@ -113,4 +113,8 @@
          <Font size="24.0" />
       </font>
    </Label>
+   <Label layoutX="28.0" layoutY="14.0" text="drawingArea width:" />
+   <Label layoutX="258.0" layoutY="14.0" text="drawingArea height:" />
+   <Label fx:id="drawingAreaWidth" layoutX="131.0" layoutY="14.0" prefHeight="17.0" prefWidth="116.0" />
+   <Label fx:id="drawingAreaHeight" layoutX="365.0" layoutY="14.0" prefHeight="17.0" prefWidth="116.0" />
 </AnchorPane>

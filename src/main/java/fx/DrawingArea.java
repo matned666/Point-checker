@@ -32,13 +32,15 @@ public class DrawingArea {
     private Label centerX;
     private Label centerY;
     private Label pointId;
+    private Label height;
+    private Label width;
 
     public DrawingArea() {
         points = new ArrayList<>();
     }
 
     public void init(StackPane area, Label pointX, Label pointY, Label translateX, Label translateY, Label centerX,
-            Label centerY, Label pointId) {
+            Label centerY, Label pointId, Label height, Label width) {
         initialized = true;
         this.area = area;
         this.pointX = pointX;
@@ -48,10 +50,32 @@ public class DrawingArea {
         this.centerX = centerX;
         this.centerY = centerY;
         this.pointId = pointId;
+        this.height = height;
+        this.width = width;
     }
 
     public Point getActuallySelected() {
-        return actuallySelected;
+        if (possibleToMakeLine()) {
+            return points.get(points.size() - 1);
+        } else {
+            return null;
+        }
+    }
+
+    public boolean possibleToMakeLine() {
+        return points.size() > 0;
+    }
+
+    public Point previousActuallySelected() {
+        if (possibleToMakeAngle()) {
+            return points.get(points.size() - 2);
+        } else {
+            return null;
+        }
+    }
+
+    public boolean possibleToMakeAngle() {
+        return points.size() > 1;
     }
 
     public void removeActuallySelected() {
@@ -62,7 +86,7 @@ public class DrawingArea {
             actuallySelected.setManaged(false);
             actuallySelected.setVisible(false);
             actuallySelected.getLabel().setVisible(false);
-            if (points.size() > 0) {
+            if (possibleToMakeLine()) {
                 actuallySelected = points.get(points.size() - 1);
                 actuallySelected.setStroke(Color.RED);
             } else {
@@ -89,6 +113,8 @@ public class DrawingArea {
 
             });
             this.actuallySelected = actuallySelected;
+            points.remove(actuallySelected);
+            points.add(actuallySelected);
             this.actuallySelected.setStroke(Color.RED);
             this.actuallySelected.getLabel().setTextFill(Color.RED);
         }
@@ -107,6 +133,13 @@ public class DrawingArea {
             translateY.setText(actuallySelected != null ? String.valueOf(this.actuallySelected.getTranslateY()) : null);
             centerX.setText(actuallySelected != null ? String.valueOf(this.actuallySelected.getCenterX()) : null);
             centerY.setText(actuallySelected != null ? String.valueOf(this.actuallySelected.getCenterY()) : null);
+            height.setText(String.valueOf(area.getHeight()));
+            width.setText(String.valueOf(area.getWidth()));
         }
+    }
+
+    public void showLine(DecorationLine line) {
+        line.setVisible(true);
+        area.getChildren().add(line);
     }
 }

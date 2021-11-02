@@ -5,6 +5,7 @@ import fx.DrawingArea;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -15,29 +16,33 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     @FXML
-    public Label pointX;
+    private Label pointX;
     @FXML
-    public Label pointY;
+    private Label pointY;
     @FXML
-    public Label mouseX;
+    private Label mouseX;
     @FXML
-    public Label mouseY;
+    private Label mouseY;
     @FXML
-    public Label pointId;
+    private Label pointId;
     @FXML
-    public StackPane drawingArea;
+    private StackPane drawingArea;
     @FXML
-    public AnchorPane sceneA;
+    private AnchorPane sceneA;
     @FXML
-    public Label translateX;
+    private Label translateX;
     @FXML
-    public Label translateY;
+    private Label translateY;
     @FXML
-    public Label centerX;
+    private Label centerX;
     @FXML
-    public Label centerY;
+    private Label centerY;
 
     private final DrawingArea drawingAreaInstance = DrawingArea.getInstance();
+    @FXML
+    private Label drawingAreaWidth;
+    @FXML
+    private Label drawingAreaHeight;
 
     @FXML
     public void onAdPointButtonClicked() {
@@ -46,9 +51,18 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        drawingAreaInstance.init(drawingArea, pointX, pointY, translateX, translateY, centerX, centerY, pointId);
+        drawingAreaInstance.init(drawingArea, pointX, pointY, translateX, translateY, centerX, centerY, pointId, drawingAreaHeight, drawingAreaWidth);
         drawingArea.setOnMouseMoved(this::updateMouseLabels);
         drawingArea.setOnMouseDragged(this::updateMouseLabels);
+        drawingAreaWidth.setText(String.valueOf(drawingArea.getWidth()));
+        drawingAreaHeight.setText(String.valueOf(drawingArea.getHeight()));
+        drawingAreaInstance.update();
+        sceneA.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode().name().equals("DELETE")) {
+                drawingAreaInstance.removeActuallySelected();
+            }
+        });
+
     }
 
     private void updateMouseLabels(MouseEvent mouse) {
