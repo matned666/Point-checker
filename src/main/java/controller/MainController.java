@@ -2,19 +2,25 @@ package controller;
 
 import dialog.Dialog;
 import fx.DrawingArea;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import measurement.MeasurementType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    @FXML
+    private ChoiceBox<String> measurementTypeChoiceBox;
     @FXML
     private Label pointX;
     @FXML
@@ -57,11 +63,18 @@ public class MainController implements Initializable {
         drawingAreaWidth.setText(String.valueOf(drawingArea.getWidth()));
         drawingAreaHeight.setText(String.valueOf(drawingArea.getHeight()));
         drawingAreaInstance.update();
+        measurementTypeChoiceBox.setItems(MeasurementType.items());
         sceneA.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode().name().equals("DELETE")) {
                 drawingAreaInstance.removeActuallySelected();
             }
         });
+        measurementTypeChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
+                (observableValue, number, number2) -> {
+                    String measurement = measurementTypeChoiceBox.getItems().get((Integer) number2);
+                    System.out.println(measurement);
+                    drawingAreaInstance.setActualMeasurement(MeasurementType.valueOf(measurement));
+                });
 
     }
 

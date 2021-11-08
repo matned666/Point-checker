@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import measurement.MeasurementType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class DrawingArea {
     private Label pointId;
     private Label height;
     private Label width;
+    private MeasurementType actualMeasurement = MeasurementType.NONE;
 
     public DrawingArea() {
         points = new ArrayList<>();
@@ -105,6 +107,14 @@ public class DrawingArea {
         actuallySelected.getLabel().setTranslateY(actuallySelected.getTranslateY()-10);
         points.add(actuallySelected);
         setActuallySelected(actuallySelected);
+    }
+
+    public MeasurementType getActualMeasurement() {
+        return actualMeasurement;
+    }
+
+    public void setActualMeasurement(MeasurementType actualMeasurement) {
+        this.actualMeasurement = actualMeasurement;
     }
 
     public void setActuallySelected(Point actuallySelected) {

@@ -1,6 +1,5 @@
 package fx;
 
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import tools.Math2D;
@@ -40,7 +39,6 @@ public class AngleCurve extends Arc implements Decoration {
         anglePoint1.move(anglePoint1Vector, radius);
         anglePoint2.move(anglePoint2Vector, radius);
         getStrokeDashArray().addAll(25d, 10d);
-
         updateInner(true);
     }
 
