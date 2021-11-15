@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0"
+            prefWidth="385.0" style="-fx-background-color: Grey;" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SaveController">
+   <ChoiceBox fx:id="choiceBox" accessibleText="&lt;choose save type&gt;" layoutX="84.0" layoutY="50.0"
+              prefHeight="25.0" prefWidth="237.0"/>
+   <Label layoutX="34.0" layoutY="54.0" text="Save to:"/>
+   <ScrollPane layoutX="34.0" layoutY="98.0" prefHeight="421.0" prefWidth="309.0">
+      <VBox fx:id="measurementsVBox" prefHeight="428.0" prefWidth="289.0"
+            style="-fx-background-color: lightGrey;">
+         <AnchorPane prefHeight="22.0" prefWidth="289.0">
+            <Label prefHeight="17.0" prefWidth="220.0" text="Line measurement 122"/>
+            <CheckBox layoutX="268.0" mnemonicParsing="false"/>
+         </AnchorPane>
+         <AnchorPane prefHeight="22.0" prefWidth="289.0">
+            <Label prefHeight="17.0" prefWidth="220.0" text="Line measurement 123"/>
+            <CheckBox layoutX="268.0" mnemonicParsing="false"/>
+         </AnchorPane>
+         <AnchorPane prefHeight="22.0" prefWidth="289.0">
+            <Label prefHeight="17.0" prefWidth="220.0" text="Line measurement 124"/>
+            <CheckBox layoutX="268.0" mnemonicParsing="false"/>
+         </AnchorPane>
+         <AnchorPane prefHeight="22.0" prefWidth="289.0">
+            <Label prefHeight="17.0" prefWidth="220.0" text="Cobb measurement 1255"/>
+            <CheckBox layoutX="268.0" mnemonicParsing="false"/>
+         </AnchorPane>
+      </VBox>
+   </ScrollPane>
+   <Label layoutX="34.0" layoutY="81.0" prefHeight="17.0" prefWidth="100.0" text="choose measurements to save:"/>
+   <Button layoutX="34.0" layoutY="531.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Cancel"/>
+   <Button layoutX="235.0" layoutY="531.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Save"/>
+   <Label layoutX="34.0" layoutY="14.0" text="Saving options">
+      <font>
+         <Font name="System Bold" size="14.0"/>
+      </font>
+   </Label>
+</AnchorPane>

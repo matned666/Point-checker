@@ -4,6 +4,7 @@ import dialog.Dialog;
 import fx.DrawingArea;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -90,5 +91,10 @@ public class MainController implements Initializable {
         DrawingArea drawingArea = DrawingArea.getInstance();
         this.drawingArea.getChildren().remove(drawingArea.getActuallySelected());
         drawingArea.removeActuallySelected();
+    }
+
+    @FXML
+    public void onSaveButtonPressed() {
+        Dialog.openDialog("Save work area", "saveWindow", drawingArea.getScene());
     }
 }
