@@ -154,4 +154,8 @@ public class DrawingArea {
         line.setVisible(true);
         area.getChildren().add(line);
     }
+
+    public void clearArea() {
+
+    }
 }

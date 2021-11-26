@@ -1,6 +1,7 @@
 package fx;
 
 import io.reactivex.subjects.PublishSubject;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -62,6 +63,13 @@ public class Point extends Circle implements Decoration{
             update();
             changeObservable.onNext(this);
             fx.DrawingArea.getInstance().update();
+        });
+        hoverProperty().addListener((a,b,c) -> {
+            if (c){
+                setCursor(Cursor.HAND);
+            } else {
+                setCursor(Cursor.DEFAULT);
+            }
         });
 
     }
@@ -128,29 +136,29 @@ public class Point extends Circle implements Decoration{
     }
 
 
-    public static final class PointBuilder {
+    public static final class Builder {
         private String id;
         private final double x;
         private final double y;
         private Color color;
 
-        private PointBuilder(double x, double y) {
+        private Builder(double x, double y) {
             this.x = x;
             this.y = y;
             id = "";
             color = Color.BLACK;
         }
 
-        public static PointBuilder aPoint(double x, double y) {
-            return new PointBuilder(x,y);
+        public static Builder withCoordinates(double x, double y) {
+            return new Builder(x,y);
         }
 
-        public PointBuilder withId(String id) {
+        public Builder withId(String id) {
             this.id = id;
             return this;
         }
 
-        public PointBuilder withColor(Color color) {
+        public Builder withColor(Color color) {
             this.color = color;
             return this;
         }

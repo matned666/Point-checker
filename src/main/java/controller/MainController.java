@@ -2,8 +2,6 @@ package controller;
 
 import dialog.Dialog;
 import fx.DrawingArea;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Line;
 import measurement.MeasurementType;
 
 import java.net.URL;
@@ -20,6 +19,10 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    @FXML
+    private Line dashedLine1;
+    @FXML
+    private Line dashedLine2;
     @FXML
     private ChoiceBox<String> measurementTypeChoiceBox;
     @FXML
@@ -96,5 +99,12 @@ public class MainController implements Initializable {
     @FXML
     public void onSaveButtonPressed() {
         Dialog.openDialog("Save work area", "saveWindow", drawingArea.getScene());
+    }
+
+    @FXML
+    private void onClearArea(ActionEvent event) {
+        drawingArea.getChildren().clear();
+        drawingArea.getChildren().add(dashedLine1);
+        drawingArea.getChildren().add(dashedLine2);
     }
 }

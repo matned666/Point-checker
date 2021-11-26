@@ -12,7 +12,7 @@ public class Vector2D {
     public Vector2D(Point start, Point end) {
         double x = end.getX() - start.getX();
         double y = end.getY() - start.getY();
-        direction = Point.PointBuilder.aPoint(x,y).build();
+        direction = Point.Builder.withCoordinates(x,y).build();
     }
 
     public static Vector2D addVectors(Vector2D v1, Vector2D v2) {

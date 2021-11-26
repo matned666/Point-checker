@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 
 public class AddPointController implements Initializable {
 
+    @FXML public CheckBox line;
+    @FXML public CheckBox angle;
     @FXML private ColorPicker colorPicker;
     @FXML private TextField xTextField;
     @FXML private TextField yTextField;
@@ -42,16 +44,17 @@ public class AddPointController implements Initializable {
             y += drawingArea.getArea().getHeight() / 2;
         }
         String id = idTextField.getText();
-        Color color = colorPicker.getValue();
-        Point point = Point.PointBuilder.aPoint(x, y).withColor(color).withId(id).build();
+        Color fromPicker = colorPicker.getValue();
+        Point point = Point.Builder.withCoordinates(x, y).withColor(fromPicker).withId(id).build();
         point.update();
         if (DrawingArea.getInstance().possibleToMakeLine()) {
-            addLine(drawingArea,DrawingArea.getInstance().getActuallySelected(), point);
+            addLine(drawingArea, DrawingArea.getInstance().getActuallySelected(), point);
         }
 
         if (DrawingArea.getInstance().possibleToMakeAngle()) {
-            addAngleArc(drawingArea, DrawingArea.getInstance().getActuallySelected(), DrawingArea.getInstance().previousActuallySelected(),point);
-            addLine(drawingArea,DrawingArea.getInstance().getActuallySelected(), point);
+            addAngleArc(drawingArea, DrawingArea.getInstance().getActuallySelected(),
+                    DrawingArea.getInstance().previousActuallySelected(), point);
+            addLine(drawingArea, DrawingArea.getInstance().getActuallySelected(), point);
         }
         drawingArea.addPoint(point);
         drawingArea.update();
@@ -61,18 +64,27 @@ public class AddPointController implements Initializable {
     }
 
     private void addLine(DrawingArea drawingArea, Point point1, Point point2) {
-        DecorationLine line = new DecorationLine(point1, point2);
-        point1.subscribe(line);
-        point2.subscribe(line);
-        drawingArea.showDecoration(line);
+        if (line.isSelected()) {
+            DecorationLine line = new DecorationLine(point1, point2);
+            line.setStroke(colorPicker.getValue());
+            point1.subscribe(line);
+            point2.subscribe(line);
+            drawingArea.showDecoration(line);
+        }
     }
 
     private void addAngleArc(DrawingArea drawingArea, Point tip, Point point1, Point point2) {
-        AngleCurve angleCurve = new AngleCurve(tip, point1, point2);
-        tip.subscribe(angleCurve);
-        point1.subscribe(angleCurve);
-        point2.subscribe(angleCurve);
-        drawingArea.showDecoration(angleCurve);
+        if (angle.isSelected()) {
+            line.setSelected(true);
+            addLine(drawingArea, tip, point2);
+            addLine(drawingArea, tip, point1);
+            AngleCurve angleCurve = new AngleCurve(tip, point1, point2);
+            angleCurve.setStroke(colorPicker.getValue());
+            tip.subscribe(angleCurve);
+            point1.subscribe(angleCurve);
+            point2.subscribe(angleCurve);
+            drawingArea.showDecoration(angleCurve);
+        }
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -102,5 +114,10 @@ public class AddPointController implements Initializable {
             }
         });
 
+    }
+
+    @FXML
+    private void fieldAction(ActionEvent event) {
+        onApplyPointClick(event);
     }
 }

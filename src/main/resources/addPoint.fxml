@@ -20,12 +20,12 @@
           <Font size="25.0" />
         </font>
     </Label>
-    <TextField layoutX="154.0" layoutY="168.0" prefHeight="36.0" prefWidth="163.0" fx:id="xTextField">
+    <TextField layoutX="154.0" layoutY="168.0" onAction="#fieldAction" prefHeight="36.0" prefWidth="163.0" fx:id="xTextField">
         <font>
           <Font size="24.0" />
         </font>
     </TextField>
-    <TextField fx:id="yTextField" layoutX="154.0" layoutY="240.0" prefHeight="36.0" prefWidth="163.0">
+    <TextField fx:id="yTextField" layoutX="154.0" layoutY="240.0" onAction="#fieldAction" prefHeight="36.0" prefWidth="163.0">
         <font>
           <Font size="24.0" />
         </font>
@@ -40,7 +40,7 @@
           <Font size="25.0" />
         </font>
     </Label>
-    <TextField fx:id="idTextField" layoutX="154.0" layoutY="94.0" prefHeight="36.0" prefWidth="163.0">
+    <TextField fx:id="idTextField" layoutX="154.0" layoutY="94.0" onAction="#fieldAction" prefHeight="36.0" prefWidth="163.0">
         <font>
           <Font size="24.0" />
         </font>
@@ -55,7 +55,17 @@
           <Font name="System Bold" size="36.0" />
         </font>
     </Button>
-   <CheckBox fx:id="translate" layoutX="114.0" layoutY="388.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="152.0" text="translate?">
+   <CheckBox fx:id="translate" layoutX="109.0" layoutY="356.0" mnemonicParsing="false" onAction="#fieldAction" prefHeight="36.0" prefWidth="152.0" text="translate?">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </CheckBox>
+   <CheckBox fx:id="line" layoutX="109.0" layoutY="392.0" mnemonicParsing="false" onAction="#fieldAction" prefHeight="36.0" prefWidth="152.0" text="add line?">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </CheckBox>
+   <CheckBox fx:id="angle" layoutX="109.0" layoutY="428.0" mnemonicParsing="false" onAction="#fieldAction" prefHeight="36.0" prefWidth="176.0" text="add angle?">
       <font>
          <Font size="24.0" />
       </font>

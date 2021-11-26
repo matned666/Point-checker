@@ -11,8 +11,8 @@
 <AnchorPane fx:id="sceneA" prefHeight="868.0" prefWidth="1267.0" style="-fx-background-color: darkGray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <StackPane fx:id="drawingArea" layoutX="28.0" layoutY="31.0" prefHeight="700.0" prefWidth="1200.0" style="-fx-border-color: black; -fx-background-color: white;">
       <children>
-         <Line startY="700.0" style="-fx-stroke-dash-array: 2 12;" />
-         <Line endX="1200.0" endY="700.0" startY="700.0" style="-fx-stroke-dash-array: 2 12;" />
+         <Line fx:id="dashedLine1" startY="700.0" style="-fx-stroke-dash-array: 2 12;" />
+         <Line fx:id="dashedLine2" endX="1200.0" endY="700.0" startY="700.0" style="-fx-stroke-dash-array: 2 12;" />
       </children>
    </StackPane>
     <Button layoutX="28.0" layoutY="748.0" mnemonicParsing="false" onAction="#onAdPointButtonClicked" prefHeight="108.0" prefWidth="176.0" text="ADD POINT">
@@ -124,4 +124,5 @@
          <Font name="System Bold" size="22.0" />
       </font>
    </Button>
+   <Button fx:id="clearArea" layoutX="858.0" layoutY="795.0" mnemonicParsing="false" onAction="#onClearArea" prefHeight="25.0" prefWidth="125.0" text="clear area" />
 </AnchorPane>
